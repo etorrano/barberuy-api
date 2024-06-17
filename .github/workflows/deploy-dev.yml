@@ -36,7 +36,7 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: barberuy-dev
           environment_name: Barberuy-dev-env
-          version_label: ${{ env.PIPELINE_ID }}
+          version_label: ver-${{ github.sha }}
           use_existing_version_if_available: true
           region: ${{vars.AWS_REGION}}
           deployment_package: barberuy-api.zip
