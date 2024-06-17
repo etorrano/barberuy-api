@@ -1,3 +1,6 @@
+# Secrets
+db_root_password.txt
+
 # Logs
 logs
 *.log
