@@ -24,11 +24,6 @@ jobs:
       - name: Compress Files
         run: zip --symlinks barberuy-api.zip -r * .[^.]* -x *.git* *.env*
 
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
       - name: Deploy to AWS Elastic BeanTalk
         uses: einaregilsson/beanstalk-deploy@v20
         with:
