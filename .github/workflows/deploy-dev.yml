@@ -34,7 +34,7 @@ jobs:
       - name: Install Elstic Beanstalk CLI
         run: |
           sudo apt-get install -y python3-pip
-          pip install awsebcli --upgrade --user
+          pip install awsebcli --upgrade --user --break-system-packages
           echo 'export PATH="$HOME/.local/bin:$PATH"' >> $HOME/.bashrc
           source $HOME/.bashrc
 
