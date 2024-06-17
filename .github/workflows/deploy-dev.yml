@@ -22,12 +22,12 @@ jobs:
         run: npm run build
 
       - name: Compress Files
-        run: zip --symlinks -r barberuy-api.zip .
+        run: zip --symlinks barberuy-api.zip -r * .[^.]* -x *.git* *.env*
 
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.11' 
+          python-version: '3.11'
 
       - name: Deploy to AWS Elastic BeanTalk
         uses: einaregilsson/beanstalk-deploy@v20
@@ -39,5 +39,4 @@ jobs:
           version_label: ver-${{ github.sha }}
           use_existing_version_if_available: true
           region: ${{vars.AWS_REGION}}
-          deployment_package: barberuy-api.zip
-        
+          deployment_package: barberuy-api.zip    
