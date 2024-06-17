@@ -34,8 +34,8 @@ jobs:
       - name: Install Elstic Beanstalk CLI
         run: |
           sudo apt-get install -y python3-pip
-          pip install cement==2.10.14 --break-system-packages
           pip install awsebcli --upgrade --user --break-system-packages
+          pip install cement==2.10.14 --break-system-packages
           echo 'export PATH="$HOME/.local/bin:$PATH"' >> $HOME/.bashrc
           source $HOME/.bashrc
 
