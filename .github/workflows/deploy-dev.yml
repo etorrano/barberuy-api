@@ -22,7 +22,7 @@ jobs:
         run: npm run build
 
       - name: Compress Files
-        run: zip --symlinks -r barberuy-api.zip
+        run: zip --symlinks -r barberuy-api.zip .
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
