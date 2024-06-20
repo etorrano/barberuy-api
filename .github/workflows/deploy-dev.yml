@@ -22,7 +22,7 @@ jobs:
         run: npm run build
 
       - name: Compress Files
-        run: zip --symlinks barberuy-api.zip -r .
+        run: zip --symlinks barberuy-api.zip -r . -x node_modules/**\* .env
 
       - name: Deploy to AWS Elastic BeanTalk
         uses: einaregilsson/beanstalk-deploy@v20
