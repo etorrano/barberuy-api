@@ -7,8 +7,8 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-24.04
-    
-    steps:    
+
+    steps:
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -22,7 +22,7 @@ jobs:
         run: npm run build
 
       - name: Compress Files
-        run: zip --symlinks barberuy-api.zip -r * .[^.]* -x node_modules/**\* .env
+        run: zip --symlinks barberuy-api.zip -r * .[^.]* -x node_modules/**\*
 
       - name: Deploy to AWS Elastic BeanTalk
         uses: einaregilsson/beanstalk-deploy@v20
@@ -34,4 +34,4 @@ jobs:
           version_label: ver-${{ github.sha }}
           use_existing_version_if_available: true
           region: ${{vars.AWS_REGION}}
-          deployment_package: barberuy-api.zip    
+          deployment_package: barberuy-api.zip
