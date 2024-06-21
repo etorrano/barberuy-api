@@ -18,7 +18,7 @@ jobs:
       - name: create env file
         run: |
           touch .env
-          echo DATABASE_URL=${$DATABASE_URL} >> .env
+          echo DATABASE_URL=${DATABASE_URL} >> .env
 
       - name: Prisma Generate
         run: npm run prisma:generate
