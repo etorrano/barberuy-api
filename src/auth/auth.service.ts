@@ -2,6 +2,8 @@ import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import * as bcrypt from "bcrypt";
 import { PrismaService } from "./prisma.service";
+import { UserType } from "./auth.model";
+import { SalesPoint } from "@prisma/client";
 
 @Injectable()
 export class AuthService {
@@ -26,19 +28,58 @@ export class AuthService {
     };
   }
 
-  async register(email: string, pass: string) {
+  async register(
+    email: string,
+    pass: string,
+    type: UserType = UserType.CLIENT,
+    salesPoints: SalesPoint[] = []
+  ) {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(pass, salt);
 
     try {
-      const user = await this.prisma.user.create({
-        data: {
-          email,
-          password: hashedPassword,
-        },
-      });
-      const { password, ...result } = user;
-      return result;
+      const userData = {
+        email,
+        password: hashedPassword,
+      };
+      let user;
+      switch (type) {
+        case UserType.CLIENT:
+          user = await this.prisma.client.create({
+            data: {
+              user: {
+                create: userData,
+              },
+            },
+          });
+          break;
+        case UserType.ADMIN:
+          user = await this.prisma.admin.create({
+            data: {
+              user: {
+                create: userData,
+              },
+              salesPoints: {
+                connect: salesPoints.map((sp) => ({ id: sp.id })),
+              },
+            },
+          });
+          break;
+        case UserType.STAFF:
+          user = await this.prisma.staff.create({
+            data: {
+              user: {
+                create: userData,
+              },
+            },
+          });
+          break;
+      }
+      return {
+        userId: user.userId,
+        email: user.userEmail,
+        name: user.userName,
+      };
     } catch (error) {
       console.log("Error");
       return error;

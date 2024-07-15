@@ -23,43 +23,11 @@ model User {
 
   password String
 
-  roles UserRole[]
-  admins Admin[]
-  clients Client[]
-  staff Staff[]
+  admin   Admin?
+  clients Client?
+  staff Staff?
 
   @@unique([id, email, name])
-}
-
-model Role {
-  id       Int     @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  key    String  @unique
-  name String
-
-  users UserRole[]
-
-  @@unique([id, name, key])
-}
-
-model UserRole {
-  id       Int     @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  nombre String?
-
-  user   User @relation(fields: [userId,userEmail, userName], references: [id, email, name])
-  userId Int
-  userEmail String
-  userName String
-
-  role   Role @relation(fields: [roleId, roleName, roleKey], references: [id, name, key])
-  roleId Int 
-  roleName String
-  roleKey String
 }
 
 model Admin {
@@ -67,10 +35,14 @@ model Admin {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user   User @relation(fields: [userId], references: [id])
+  user   User @relation(fields: [userId,userEmail, userName], references: [id, email, name])
   userId Int
+  userEmail String
+  userName String
 
   salesPoints SalesPoint[]
+
+  @@unique([userId, userEmail, userName])
 }
 
 model Client {
@@ -78,8 +50,12 @@ model Client {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user   User @relation(fields: [userId], references: [id])
+  user   User @relation(fields: [userId,userEmail, userName], references: [id, email, name])
   userId Int
+  userEmail String
+  userName String
+
+  @@unique([userId, userEmail, userName])
 }
 
 model Staff {
@@ -96,6 +72,7 @@ model Staff {
   services StaffService[]
 
   @@unique([id, userEmail, userName])
+  @@unique([userId, userEmail, userName])
 }
 
 model WorkShift {
