@@ -16,6 +16,8 @@ export class StaffservicesService {
       serviceName,
       serviceSalesPointId,
       scheduleId,
+      scheduleStartDate,
+      scheduleEndDate,
       ...data
     } = createStaffserviceDto;
     return this.prisma.staffService.create({
@@ -36,8 +38,10 @@ export class StaffservicesService {
           },
         },
         schedule: {
-          connect: {
+          create: {
             id: scheduleId,
+            startDate: scheduleStartDate,
+            endDate: scheduleEndDate,
           },
         },
       },
@@ -61,6 +65,8 @@ export class StaffservicesService {
       serviceName,
       serviceSalesPointId,
       scheduleId,
+      scheduleStartDate,
+      scheduleEndDate,
       ...data
     } = updateStaffserviceDto;
     return this.prisma.staffService.update({
@@ -84,6 +90,8 @@ export class StaffservicesService {
         schedule: {
           connect: {
             id: scheduleId,
+            startDate: scheduleStartDate,
+            endDate: scheduleEndDate,
           },
         },
       },

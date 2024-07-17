@@ -21,4 +21,10 @@ export class CreateStaffserviceDto {
 
   @ApiProperty()
   scheduleId: number;
+
+  @ApiProperty()
+  scheduleStartDate: Date;
+
+  @ApiProperty()
+  scheduleEndDate: Date;
 }

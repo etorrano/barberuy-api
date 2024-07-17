@@ -183,10 +183,20 @@ model Schedule {
   reviews Review[]
 }
 
+enum ReviewType {
+  Service
+  Staff
+  SalesPoint
+}
+
 model Review {
   id       Int     @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  score Int
+  comment String
+  type ReviewType
 
   schedule   Schedule @relation(fields: [scheduleId], references: [id])
   scheduleId Int
