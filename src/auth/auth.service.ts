@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import * as bcrypt from "bcrypt";
-import { PrismaService } from "./prisma.service";
+import { PrismaService } from "../database/prisma.service";
 import { UserType } from "./auth.model";
 import { SalesPoint } from "@prisma/client";
 
@@ -32,7 +32,7 @@ export class AuthService {
     email: string,
     pass: string,
     type: UserType = UserType.CLIENT,
-    salesPoints: SalesPoint[] = []
+    salesPoints: { id: number }[] = []
   ) {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(pass, salt);
@@ -60,7 +60,7 @@ export class AuthService {
                 create: userData,
               },
               salesPoints: {
-                connect: salesPoints.map((sp) => ({ id: sp.id })),
+                connect: salesPoints,
               },
             },
           });

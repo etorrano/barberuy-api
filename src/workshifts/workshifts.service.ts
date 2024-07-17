@@ -1,4 +1,4 @@
-import { PrismaService } from "./../auth/prisma.service";
+import { PrismaService } from "../database/prisma.service";
 import { Injectable } from "@nestjs/common";
 import { CreateWorkshiftDto } from "./dto/create-workshift.dto";
 import { UpdateWorkshiftDto } from "./dto/update-workshift.dto";

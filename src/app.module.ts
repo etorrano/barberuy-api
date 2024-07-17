@@ -4,9 +4,10 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { HealthcheckServiceModule } from './healthcheck-service/healthcheck-service.module';
 import { WorkshiftsModule } from './workshifts/workshifts.module';
+import { CompaniesModule } from './companies/companies.module';
 
 @Module({
-  imports: [AuthModule, HealthcheckServiceModule, WorkshiftsModule],
+  imports: [AuthModule, HealthcheckServiceModule, WorkshiftsModule, CompaniesModule],
   controllers: [AppController],
   providers: [AppService],
 })
