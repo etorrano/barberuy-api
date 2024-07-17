@@ -7,9 +7,10 @@ import { WorkshiftsModule } from './workshifts/workshifts.module';
 import { CompaniesModule } from './companies/companies.module';
 import { BusinessModule } from './business/business.module';
 import { SalespointsModule } from './salespoints/salespoints.module';
+import { ServicesModule } from './services/services.module';
 
 @Module({
-  imports: [AuthModule, HealthcheckServiceModule, WorkshiftsModule, CompaniesModule, BusinessModule, SalespointsModule],
+  imports: [AuthModule, HealthcheckServiceModule, WorkshiftsModule, CompaniesModule, BusinessModule, SalespointsModule, ServicesModule],
   controllers: [AppController],
   providers: [AppService],
 })
