@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Service } from "@prisma/client";
+import { Promotion, Service, StaffService } from "@prisma/client";
 
 export class ServiceEntity implements Service {
   @ApiProperty()
@@ -25,4 +25,10 @@ export class ServiceEntity implements Service {
 
   @ApiProperty()
   salesPointId: number;
+
+  @ApiProperty()
+  staff: StaffService[];
+
+  @ApiProperty()
+  promotions: Promotion[];
 }
