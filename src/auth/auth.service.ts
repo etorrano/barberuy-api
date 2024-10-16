@@ -29,6 +29,7 @@ export class AuthService {
   }
 
   async register(
+    name: string,
     email: string,
     pass: string,
     type: UserType = UserType.CLIENT,
@@ -39,6 +40,7 @@ export class AuthService {
 
     try {
       const userData = {
+        name,
         email,
         password: hashedPassword,
       };
@@ -81,7 +83,7 @@ export class AuthService {
         name: user.userName,
       };
     } catch (error) {
-      console.log("Error");
+      console.log("Error ", error);
       return error;
     }
   }
