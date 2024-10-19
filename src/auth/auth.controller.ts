@@ -1,6 +1,6 @@
-import { Controller, Post, Body } from "@nestjs/common";
+import { Controller, Post, Body, Get } from "@nestjs/common";
 import { AuthService } from "./auth.service";
-import { UserType } from "./auth.model";
+import { UserRole } from "./auth.model";
 
 @Controller("auth")
 export class AuthController {
@@ -17,8 +17,13 @@ export class AuthController {
       req.name,
       req.email,
       req.password,
-      req.type || UserType.CLIENT,
+      req.role || UserRole.CLIENT,
       req.salesPoints || []
     );
+  }
+
+  @Get()
+  findAll() {
+    return this.authService.findAll();
   }
 }

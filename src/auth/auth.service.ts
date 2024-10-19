@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import * as bcrypt from "bcrypt";
 import { PrismaService } from "../database/prisma.service";
-import { UserType } from "./auth.model";
+import { UserRole } from "./auth.model";
 import { SalesPoint } from "@prisma/client";
 
 @Injectable()
@@ -32,7 +32,7 @@ export class AuthService {
     name: string,
     email: string,
     pass: string,
-    type: UserType = UserType.CLIENT,
+    role: UserRole = UserRole.CLIENT,
     salesPoints: { id: number }[] = []
   ) {
     const salt = await bcrypt.genSalt();
@@ -43,10 +43,11 @@ export class AuthService {
         name,
         email,
         password: hashedPassword,
+        role,
       };
       let user;
-      switch (type) {
-        case UserType.CLIENT:
+      switch (role) {
+        case UserRole.CLIENT:
           user = await this.prisma.client.create({
             data: {
               user: {
@@ -55,7 +56,7 @@ export class AuthService {
             },
           });
           break;
-        case UserType.ADMIN:
+        case UserRole.ADMIN:
           user = await this.prisma.admin.create({
             data: {
               user: {
@@ -67,7 +68,7 @@ export class AuthService {
             },
           });
           break;
-        case UserType.STAFF:
+        case UserRole.STAFF:
           user = await this.prisma.staff.create({
             data: {
               user: {
@@ -86,5 +87,9 @@ export class AuthService {
       console.log("Error ", error);
       return error;
     }
+  }
+
+  findAll() {
+    return this.prisma.user.findMany();
   }
 }
