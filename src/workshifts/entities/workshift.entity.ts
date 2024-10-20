@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Staff, WorkShift } from "@prisma/client";
+import { Days } from "../workshift.model";
 
 export class WorkshiftEntity implements WorkShift {
   @ApiProperty()
@@ -10,6 +11,9 @@ export class WorkshiftEntity implements WorkShift {
 
   @ApiProperty()
   updatedAt: Date;
+
+  @ApiProperty()
+  days: Days[];
 
   @ApiProperty()
   startTime: Date;

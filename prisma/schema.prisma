@@ -21,6 +21,16 @@ enum UserRole {
   STAFF
 }
 
+enum Days {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
 model User {
   id       Int     @id @default(autoincrement())
   createdAt DateTime @default(now())
@@ -87,6 +97,8 @@ model WorkShift {
   id       Int     @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  days Days[]
 
   startTime DateTime @db.Time(4)
   endTime DateTime @db.Time(4)
