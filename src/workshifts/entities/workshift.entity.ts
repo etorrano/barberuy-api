@@ -16,10 +16,10 @@ export class WorkshiftEntity implements WorkShift {
   days: Days[];
 
   @ApiProperty()
-  startTime: Date;
+  startTime: string;
 
   @ApiProperty()
-  endTime: Date;
+  endTime: string;
 
   @ApiProperty()
   staff: Staff[];

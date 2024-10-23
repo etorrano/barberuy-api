@@ -100,8 +100,8 @@ model WorkShift {
 
   days Days[]
 
-  startTime DateTime @db.Time(4)
-  endTime DateTime @db.Time(4)
+  startTime String
+  endTime String
 
   staff Staff[]
 }

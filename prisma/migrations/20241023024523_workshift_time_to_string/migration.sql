@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "WorkShift" ALTER COLUMN "endTime" SET DATA TYPE TEXT,
+ALTER COLUMN "startTime" SET DATA TYPE TEXT;
