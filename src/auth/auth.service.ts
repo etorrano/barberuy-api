@@ -4,6 +4,7 @@ import * as bcrypt from "bcrypt";
 import { PrismaService } from "../database/prisma.service";
 import { UserRole } from "./auth.model";
 import { SalesPoint } from "@prisma/client";
+import { UpdateUserDto } from "./dto/update-user.dto";
 
 @Injectable()
 export class AuthService {
@@ -95,5 +96,20 @@ export class AuthService {
         password: true,
       },
     });
+  }
+
+  findOne(id: number) {
+    return this.prisma.user.findUnique({ where: { id } });
+  }
+
+  update(id: number, updateBusinessDto: UpdateUserDto) {
+    return this.prisma.user.update({
+      where: { id },
+      data: updateBusinessDto,
+    });
+  }
+
+  remove(id: number) {
+    return this.prisma.user.delete({ where: { id } });
   }
 }
