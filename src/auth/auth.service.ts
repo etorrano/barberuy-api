@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import * as bcrypt from "bcrypt";
 import { PrismaService } from "../database/prisma.service";
@@ -36,57 +36,68 @@ export class AuthService {
     role: UserRole = UserRole.CLIENT,
     salesPoints: { id: number }[] = []
   ) {
-    const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(pass, salt);
+    const duplicatedUser = await this.prisma.user.findUnique({
+      where: { email },
+    });
+    console.log(duplicatedUser);
+    if (duplicatedUser) {
+      throw new HttpException(
+        "Ya existe un usuario registrado con el mismo correo",
+        HttpStatus.BAD_REQUEST
+      );
+    } else {
+      const salt = await bcrypt.genSalt();
+      const hashedPassword = await bcrypt.hash(pass, salt);
 
-    try {
-      const userData = {
-        name,
-        email,
-        password: hashedPassword,
-        role,
-      };
-      let user;
-      switch (role) {
-        case UserRole.CLIENT:
-          user = await this.prisma.client.create({
-            data: {
-              user: {
-                create: userData,
+      try {
+        const userData = {
+          name,
+          email,
+          password: hashedPassword,
+          role,
+        };
+        let user;
+        switch (role) {
+          case UserRole.CLIENT:
+            user = await this.prisma.client.create({
+              data: {
+                user: {
+                  create: userData,
+                },
               },
-            },
-          });
-          break;
-        case UserRole.ADMIN:
-          user = await this.prisma.admin.create({
-            data: {
-              user: {
-                create: userData,
+            });
+            break;
+          case UserRole.ADMIN:
+            user = await this.prisma.admin.create({
+              data: {
+                user: {
+                  create: userData,
+                },
+                salesPoints: {
+                  connect: salesPoints,
+                },
               },
-              salesPoints: {
-                connect: salesPoints,
+            });
+            break;
+          case UserRole.STAFF:
+            user = await this.prisma.staff.create({
+              data: {
+                user: {
+                  create: userData,
+                },
               },
-            },
-          });
-          break;
-        case UserRole.STAFF:
-          user = await this.prisma.staff.create({
-            data: {
-              user: {
-                create: userData,
-              },
-            },
-          });
-          break;
+            });
+            break;
+        }
+        return {
+          userId: user.userId,
+          email: user.userEmail,
+          name: user.userName,
+        };
+      } catch (error) {
+        console.log("Error ", error);
+        return error;
       }
-      return {
-        userId: user.userId,
-        email: user.userEmail,
-        name: user.userName,
-      };
-    } catch (error) {
-      console.log("Error ", error);
-      return error;
     }
   }
 
@@ -95,11 +106,14 @@ export class AuthService {
       omit: {
         password: true,
       },
+      where: { active: { equals: true } },
     });
   }
 
   findOne(id: number) {
-    return this.prisma.user.findUnique({ where: { id } });
+    return this.prisma.user.findUnique({
+      where: { id, active: { equals: true } },
+    });
   }
 
   update(id: number, updateBusinessDto: UpdateUserDto) {
@@ -110,6 +124,6 @@ export class AuthService {
   }
 
   remove(id: number) {
-    return this.prisma.user.delete({ where: { id } });
+    return this.prisma.user.update({ where: { id }, data: { active: false } });
   }
 }
