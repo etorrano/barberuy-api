@@ -8,18 +8,8 @@ export class StaffservicesService {
   constructor(private prisma: PrismaService) {}
 
   create(createStaffserviceDto: CreateStaffserviceDto) {
-    const {
-      staffId,
-      staffEmail,
-      staffName,
-      serviceId,
-      serviceName,
-      serviceSalesPointId,
-      scheduleId,
-      scheduleStartDate,
-      scheduleEndDate,
-      ...data
-    } = createStaffserviceDto;
+    const { staffId, staffEmail, staffName, serviceId, serviceName, ...data } =
+      createStaffserviceDto;
     return this.prisma.staffService.create({
       data: {
         ...data,
@@ -34,14 +24,6 @@ export class StaffservicesService {
           connect: {
             id: serviceId,
             name: serviceName,
-            salesPointId: serviceSalesPointId,
-          },
-        },
-        schedule: {
-          create: {
-            id: scheduleId,
-            startDate: scheduleStartDate,
-            endDate: scheduleEndDate,
           },
         },
       },
@@ -84,15 +66,16 @@ export class StaffservicesService {
           connect: {
             id: serviceId,
             name: serviceName,
-            salesPointId: serviceSalesPointId,
           },
         },
-        schedule: {
-          connect: {
-            id: scheduleId,
-            startDate: scheduleStartDate,
-            endDate: scheduleEndDate,
-          },
+        schedules: {
+          connect: [
+            {
+              id: scheduleId,
+              startDate: scheduleStartDate,
+              endDate: scheduleEndDate,
+            },
+          ],
         },
       },
     });

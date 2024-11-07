@@ -74,6 +74,8 @@ model Client {
   userEmail String
   userName String
 
+  schedules Schedule[]
+
   @@unique([userId, userEmail, userName])
 }
 
@@ -89,6 +91,7 @@ model Staff {
 
   workshifts WorkShift[]
   services StaffService[]
+  salespoints SalesPoint[]
 
   @@unique([id, userEmail, userName])
   @@unique([userId, userEmail, userName])
@@ -144,9 +147,13 @@ model SalesPoint {
   company   Company @relation(fields: [companyId], references: [id])
   companyId Int
 
+  staff Staff[]
+
   services Service[]
 
   admins Admin[]
+
+  schedules Schedule[]
 
   @@unique([street, streetNumber, floor])
 }
@@ -161,14 +168,13 @@ model Service {
   cost Int
   duration Int // minutes
 
-  salesPoint   SalesPoint @relation(fields: [salesPointId], references: [id])
-  salesPointId Int
+  salespoints   SalesPoint[]
 
   staff StaffService[]
   promotions Promotion[]
 
   @@unique([key, name])
-  @@unique([id, name, salesPointId])
+  @@unique([id, name])
 }
 
 model StaffService {
@@ -181,15 +187,13 @@ model StaffService {
   staffEmail String
   staffName String
 
-  service   Service @relation(fields: [serviceId, serviceName, serviceSalesPointId], references: [id, name, salesPointId])
+  service   Service @relation(fields: [serviceId, serviceName], references: [id, name])
   serviceId Int
-  serviceName String
-  serviceSalesPointId Int
+  serviceName String 
 
-  schedule   Schedule @relation(fields: [scheduleId], references: [id])
-  scheduleId Int
+  schedules Schedule[]
 
-  @@unique([id, serviceId, serviceName, serviceSalesPointId, staffEmail, staffName])
+  @@unique([id, serviceId, serviceName, staffEmail, staffName])
 }
 
 model Schedule {
@@ -202,6 +206,12 @@ model Schedule {
 
   service StaffService[]
   reviews Review[]
+  
+  salespoint SalesPoint @relation(fields: [salesPointId], references: [id])
+  salesPointId Int
+
+  client Client @relation(fields: [clientId], references: [id])
+  clientId Int
 }
 
 enum ReviewType {

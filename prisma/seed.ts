@@ -81,7 +81,7 @@ async function main() {
       name: "Corte Bigote",
       cost: 200,
       duration: 1000 * 60 * 5,
-      salesPointId: salesPoint.id,
+      salespoints: { connect: [salesPoint] },
     },
   });
 }

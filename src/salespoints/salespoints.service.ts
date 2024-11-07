@@ -12,11 +12,20 @@ export class SalespointsService {
   }
 
   findAll() {
-    return this.prisma.salesPoint.findMany();
+    return this.prisma.salesPoint.findMany({
+      include: {
+        staff: true,
+      },
+    });
   }
 
   findOne(id: number) {
-    return this.prisma.salesPoint.findUnique({ where: { id } });
+    return this.prisma.salesPoint.findUnique({
+      where: { id },
+      include: {
+        staff: true,
+      },
+    });
   }
 
   update(id: number, updateSalespointDto: UpdateSalespointDto) {
