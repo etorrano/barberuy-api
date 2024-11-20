@@ -20,6 +20,9 @@ export class CreateStaffserviceDto {
   serviceSalesPointId: number;
 
   @ApiProperty()
+  serviceSalesPointName: string;
+
+  @ApiProperty()
   scheduleId: number;
 
   @ApiProperty()

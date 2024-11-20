@@ -15,6 +15,7 @@ export class StaffservicesService {
       serviceId,
       serviceName,
       serviceSalesPointId,
+      serviceSalesPointName,
       scheduleId,
       scheduleStartDate,
       scheduleEndDate,
@@ -34,7 +35,6 @@ export class StaffservicesService {
           connect: {
             id: serviceId,
             name: serviceName,
-            salesPointId: serviceSalesPointId,
           },
         },
         schedule: {
@@ -42,6 +42,12 @@ export class StaffservicesService {
             id: scheduleId,
             startDate: scheduleStartDate,
             endDate: scheduleEndDate,
+          },
+        },
+        salesPoint: {
+          connect: {
+            id: serviceSalesPointId,
+            name: serviceSalesPointName,
           },
         },
       },
@@ -64,6 +70,7 @@ export class StaffservicesService {
       serviceId,
       serviceName,
       serviceSalesPointId,
+      serviceSalesPointName,
       scheduleId,
       scheduleStartDate,
       scheduleEndDate,
@@ -84,7 +91,6 @@ export class StaffservicesService {
           connect: {
             id: serviceId,
             name: serviceName,
-            salesPointId: serviceSalesPointId,
           },
         },
         schedule: {
@@ -92,6 +98,12 @@ export class StaffservicesService {
             id: scheduleId,
             startDate: scheduleStartDate,
             endDate: scheduleEndDate,
+          },
+        },
+        salesPoint: {
+          connect: {
+            id: serviceSalesPointId,
+            name: serviceSalesPointName,
           },
         },
       },

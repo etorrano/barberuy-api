@@ -27,6 +27,12 @@ export class StaffserviceEntity implements StaffService {
   serviceName: string;
 
   @ApiProperty()
+  salesPointId: number;
+
+  @ApiProperty()
+  salesPointName: string;
+
+  @ApiProperty()
   serviceSalesPointId: number;
 
   @ApiProperty()

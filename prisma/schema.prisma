@@ -136,7 +136,7 @@ model SalesPoint {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  name String
+  name String @unique
   street String
   streetNumber String
   floor String?
@@ -148,7 +148,10 @@ model SalesPoint {
 
   admins Admin[]
 
+  staffServices StaffService[]
+
   @@unique([street, streetNumber, floor])
+  @@unique([id, name])
 }
 
 model Service {
@@ -161,14 +164,13 @@ model Service {
   cost Int
   duration Int // minutes
 
-  salesPoint   SalesPoint @relation(fields: [salesPointId], references: [id])
-  salesPointId Int
+  salesPoints SalesPoint[]
 
   staff StaffService[]
   promotions Promotion[]
 
   @@unique([key, name])
-  @@unique([id, name, salesPointId])
+  @@unique([id, name])
 }
 
 model StaffService {
@@ -181,15 +183,18 @@ model StaffService {
   staffEmail String
   staffName String
 
-  service   Service @relation(fields: [serviceId, serviceName, serviceSalesPointId], references: [id, name, salesPointId])
+  service   Service @relation(fields: [serviceId, serviceName], references: [id, name])
   serviceId Int
   serviceName String
-  serviceSalesPointId Int
+
+  salesPoint SalesPoint @relation(fields: [salesPointId, salesPointName], references: [id, name])
+  salesPointId Int
+  salesPointName String
 
   schedule   Schedule @relation(fields: [scheduleId], references: [id])
   scheduleId Int
 
-  @@unique([id, serviceId, serviceName, serviceSalesPointId, staffEmail, staffName])
+  @@unique([id, serviceId, serviceName, staffEmail, staffName, salesPointId, salesPointName])
 }
 
 model Schedule {
