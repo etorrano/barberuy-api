@@ -14,5 +14,8 @@ export class CreateServiceDto {
   duration: number; //minutes
 
   @ApiProperty()
+  durationSteps: number[]; //minutes
+
+  @ApiProperty()
   salesPointId: number;
 }

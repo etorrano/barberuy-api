@@ -90,6 +90,28 @@ async function main() {
       },
     },
   });
+
+  const staffService = await prisma.staffService.upsert({
+    where: {
+      group_id: {
+        staffId: carlos.id,
+        serviceId: service.id,
+        salesPointId: salesPoint.id,
+      },
+    },
+    update: {},
+    create: {
+      staff: {
+        connect: { id: carlos.id },
+      },
+      service: {
+        connect: { id: service.id },
+      },
+      salesPoint: {
+        connect: { id: salesPoint.id },
+      },
+    },
+  });
 }
 
 main()

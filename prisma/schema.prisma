@@ -163,6 +163,7 @@ model Service {
   name String
   cost Int
   duration Int // minutes
+  durationSteps Int[]
 
   salesPoints SalesPoint[]
 
@@ -191,10 +192,10 @@ model StaffService {
   salesPointId Int
   salesPointName String
 
-  schedule   Schedule @relation(fields: [scheduleId], references: [id])
-  scheduleId Int
+  schedules Schedule[]
 
   @@unique([id, serviceId, serviceName, staffEmail, staffName, salesPointId, salesPointName])
+  @@unique(name: "group_id", [serviceId, staffId, salesPointId])
 }
 
 model Schedule {
@@ -207,6 +208,8 @@ model Schedule {
 
   service StaffService[]
   reviews Review[]
+
+  @@unique([id, startDate, endDate])
 }
 
 enum ReviewType {

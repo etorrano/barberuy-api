@@ -12,7 +12,9 @@ export class ServicesService {
   }
 
   findAll() {
-    return this.prisma.service.findMany();
+    return this.prisma.service.findMany({
+      include: { salesPoints: true, staff: true },
+    });
   }
 
   findOne(id: number) {

@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { StaffService } from "@prisma/client";
+import { Schedule, StaffService } from "@prisma/client";
 
 export class StaffserviceEntity implements StaffService {
   @ApiProperty()
@@ -33,8 +33,5 @@ export class StaffserviceEntity implements StaffService {
   salesPointName: string;
 
   @ApiProperty()
-  serviceSalesPointId: number;
-
-  @ApiProperty()
-  scheduleId: number;
+  schedules: Schedule[];
 }
