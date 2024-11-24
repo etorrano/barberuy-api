@@ -1,5 +1,4 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Schedule } from "@prisma/client";
 
 export class CreateStaffserviceDto {
   @ApiProperty()
@@ -24,5 +23,5 @@ export class CreateStaffserviceDto {
   salesPointName: string;
 
   @ApiProperty()
-  schedules: { id: number }[];
+  schedules?: { id: number }[];
 }

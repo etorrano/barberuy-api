@@ -89,6 +89,7 @@ model Staff {
 
   workshifts WorkShift[]
   services StaffService[]
+  salesPoints SalesPoint[]
 
   @@unique([id, userEmail, userName])
   @@unique([userId, userEmail, userName])
@@ -144,9 +145,9 @@ model SalesPoint {
   company   Company @relation(fields: [companyId], references: [id])
   companyId Int
 
-  services Service[]
-
   admins Admin[]
+
+  staff Staff[]
 
   staffServices StaffService[]
 
@@ -164,8 +165,6 @@ model Service {
   cost Int
   duration Int // minutes
   durationSteps Int[]
-
-  salesPoints SalesPoint[]
 
   staff StaffService[]
   promotions Promotion[]

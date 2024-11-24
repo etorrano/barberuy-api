@@ -11,8 +11,17 @@ export class CreateSalespointDto {
   streetNumber: string;
 
   @ApiProperty()
-  floor: string;
+  floor: string | null;
 
   @ApiProperty()
   companyId: number;
+
+  @ApiProperty()
+  admins: { id: number }[];
+
+  @ApiProperty()
+  staff: { id: number }[];
+
+  @ApiProperty()
+  staffServices: { id: number }[];
 }

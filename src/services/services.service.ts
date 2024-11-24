@@ -13,7 +13,7 @@ export class ServicesService {
 
   findAll() {
     return this.prisma.service.findMany({
-      include: { salesPoints: true, staff: true },
+      include: { staff: true },
     });
   }
 
