@@ -39,7 +39,6 @@ export class AuthService {
     const duplicatedUser = await this.prisma.user.findUnique({
       where: { email },
     });
-    console.log(duplicatedUser);
     if (duplicatedUser) {
       throw new HttpException(
         "Ya existe un usuario registrado con el mismo correo",
