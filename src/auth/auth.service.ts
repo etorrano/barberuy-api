@@ -100,12 +100,15 @@ export class AuthService {
     }
   }
 
-  findAll() {
+  findAll(role?: UserRole) {
     return this.prisma.user.findMany({
       omit: {
         password: true,
       },
-      where: { active: { equals: true } },
+      where: { 
+        active: { equals: true },
+        ... role && { role },
+      },
     });
   }
 

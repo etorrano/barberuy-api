@@ -40,13 +40,13 @@ export class SalespointsService {
       data: {
         ...updateSalespointDto,
         admins: {
-          connect: updateSalespointDto.admins.map((a) => ({ id: a.id })),
+          connect: updateSalespointDto.admins,
         },
         staff: {
-          connect: updateSalespointDto.admins.map((a) => ({ id: a.id })),
+          connect: updateSalespointDto.staff,
         },
         staffServices: {
-          connect: updateSalespointDto.admins.map((a) => ({ id: a.id })),
+          connect: updateSalespointDto.staffServices,
         },
       },
     });
