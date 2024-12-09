@@ -84,6 +84,9 @@ export class AuthService {
                 user: {
                   create: userData,
                 },
+                salesPoints: {
+                  connect: salesPoints,
+                },
               },
             });
             break;

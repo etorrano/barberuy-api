@@ -19,5 +19,5 @@ export class CreateUserDto {
   role: UserRole;
 
   @ApiProperty()
-  salesPoints?: SalesPoint[];
+  salesPoints?: { id: number }[];
 }
