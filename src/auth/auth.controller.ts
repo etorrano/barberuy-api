@@ -36,6 +36,26 @@ export class AuthController {
     return this.authService.findAll();
   }
 
+  @Get("/clients")
+  findAllClients() {
+    return this.authService.findAll(UserRole.CLIENT);
+  }
+
+  @Get("/staff")
+  findAllStaff() {
+    return this.authService.findAll(UserRole.STAFF);
+  }
+
+  @Get("/admins")
+  findAllAdmins() {
+    return this.authService.findAll(UserRole.ADMIN);
+  }
+
+  @Get("/super-admins")
+  findAllSuperAdmins() {
+    return this.authService.findAll(UserRole.SUPERADMIN);
+  }
+
   @Get(":id")
   findOne(@Param("id") id: string) {
     return this.authService.findOne(+id);

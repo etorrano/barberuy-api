@@ -33,8 +33,10 @@ async function main() {
     },
   });
 
-  const salesPoint = await prisma.salesPoint.create({
-    data: {
+  const salesPoint = await prisma.salesPoint.upsert({
+    where: { name: "BarberUY Parque Batlle" },
+    update: {},
+    create: {
       name: "BarberUY Parque Batlle",
       street: "Bvar. Artigas",
       streetNumber: "2024",
@@ -50,6 +52,9 @@ async function main() {
             },
           },
         },
+      },
+      staff: {
+        connect: [{ id: carlos.id }],
       },
     },
   });
@@ -75,13 +80,36 @@ async function main() {
     },
   });
 
-  const service = await prisma.service.create({
-    data: {
+  const service = await prisma.service.upsert({
+    where: { key: "Servicio_1" },
+    update: {},
+    create: {
       key: "Servicio_1",
       name: "Corte Bigote",
       cost: 200,
       duration: 1000 * 60 * 5,
-      salespoints: { connect: [salesPoint] },
+    },
+  });
+
+  const staffService = await prisma.staffService.upsert({
+    where: {
+      group_id: {
+        staffId: carlos.id,
+        serviceId: service.id,
+        salesPointId: salesPoint.id,
+      },
+    },
+    update: {},
+    create: {
+      staff: {
+        connect: { id: carlos.id },
+      },
+      service: {
+        connect: { id: service.id },
+      },
+      salesPoint: {
+        connect: { id: salesPoint.id },
+      },
     },
   });
 }

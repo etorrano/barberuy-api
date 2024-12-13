@@ -17,14 +17,11 @@ export class CreateStaffserviceDto {
   serviceName: string;
 
   @ApiProperty()
-  serviceSalesPointId: number;
+  salesPointId: number;
 
   @ApiProperty()
-  scheduleId: number;
+  salesPointName: string;
 
   @ApiProperty()
-  scheduleStartDate: Date;
-
-  @ApiProperty()
-  scheduleEndDate: Date;
+  schedules?: { id: number }[];
 }

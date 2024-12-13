@@ -91,7 +91,7 @@ model Staff {
 
   workshifts WorkShift[]
   services StaffService[]
-  salespoints SalesPoint[]
+  salesPoints SalesPoint[]
 
   @@unique([id, userEmail, userName])
   @@unique([userId, userEmail, userName])
@@ -139,7 +139,7 @@ model SalesPoint {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  name String
+  name String @unique
   street String
   streetNumber String
   floor String?
@@ -147,15 +147,14 @@ model SalesPoint {
   company   Company @relation(fields: [companyId], references: [id])
   companyId Int
 
-  staff Staff[]
-
-  services Service[]
-
   admins Admin[]
 
-  schedules Schedule[]
+  staff Staff[]
+
+  staffServices StaffService[]
 
   @@unique([street, streetNumber, floor])
+  @@unique([id, name])
 }
 
 model Service {
@@ -167,8 +166,7 @@ model Service {
   name String
   cost Int
   duration Int // minutes
-
-  salespoints   SalesPoint[]
+  durationSteps Int[]
 
   staff StaffService[]
   promotions Promotion[]
@@ -189,11 +187,16 @@ model StaffService {
 
   service   Service @relation(fields: [serviceId, serviceName], references: [id, name])
   serviceId Int
-  serviceName String 
+  serviceName String
+
+  salesPoint SalesPoint @relation(fields: [salesPointId, salesPointName], references: [id, name])
+  salesPointId Int
+  salesPointName String
 
   schedules Schedule[]
 
-  @@unique([id, serviceId, serviceName, staffEmail, staffName])
+  @@unique([id, serviceId, serviceName, staffEmail, staffName, salesPointId, salesPointName])
+  @@unique(name: "group_id", [serviceId, staffId, salesPointId])
 }
 
 model Schedule {
@@ -206,12 +209,8 @@ model Schedule {
 
   service StaffService[]
   reviews Review[]
-  
-  salespoint SalesPoint @relation(fields: [salesPointId], references: [id])
-  salesPointId Int
 
-  client Client @relation(fields: [clientId], references: [id])
-  clientId Int
+  @@unique([id, startDate, endDate])
 }
 
 enum ReviewType {
