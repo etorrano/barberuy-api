@@ -1,4 +1,4 @@
--- CreateTable
+/* -- CreateTable
 CREATE TABLE "_SalesPointToStaff" (
     "A" INTEGER NOT NULL,
     "B" INTEGER NOT NULL
@@ -15,3 +15,4 @@ ALTER TABLE "_SalesPointToStaff" ADD CONSTRAINT "_SalesPointToStaff_A_fkey" FORE
 
 -- AddForeignKey
 ALTER TABLE "_SalesPointToStaff" ADD CONSTRAINT "_SalesPointToStaff_B_fkey" FOREIGN KEY ("B") REFERENCES "Staff"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ */

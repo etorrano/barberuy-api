@@ -11,22 +11,22 @@
 
 */
 -- DropForeignKey
-ALTER TABLE "Service" DROP CONSTRAINT "Service_salesPointId_fkey";
+-- ALTER TABLE "Service" DROP CONSTRAINT "Service_salesPointId_fkey";
 
 -- DropForeignKey
-ALTER TABLE "StaffService" DROP CONSTRAINT "StaffService_serviceId_serviceName_serviceSalesPointId_fkey";
+-- ALTER TABLE "StaffService" DROP CONSTRAINT "StaffService_serviceId_serviceName_serviceSalesPointId_fkey";
 
 -- DropIndex
-DROP INDEX "Service_id_name_salesPointId_key";
+-- DROP INDEX "Service_id_name_salesPointId_key";
 
 -- DropIndex
-DROP INDEX "StaffService_id_serviceId_serviceName_serviceSalesPointId_s_key";
+-- DROP INDEX "StaffService_id_serviceId_serviceName_serviceSalesPointId_s_key";
 
 -- AlterTable
-ALTER TABLE "Service" DROP COLUMN "salesPointId";
+-- ALTER TABLE "Service" DROP COLUMN "salesPointId";
 
 -- AlterTable
-ALTER TABLE "StaffService" DROP COLUMN "serviceSalesPointId",
+/* ALTER TABLE "StaffService" --DROP COLUMN "serviceSalesPointId",
 ADD COLUMN     "salesPointId" INTEGER NOT NULL,
 ADD COLUMN     "salesPointName" TEXT NOT NULL;
 
@@ -62,3 +62,4 @@ ALTER TABLE "_SalesPointToService" ADD CONSTRAINT "_SalesPointToService_A_fkey" 
 
 -- AddForeignKey
 ALTER TABLE "_SalesPointToService" ADD CONSTRAINT "_SalesPointToService_B_fkey" FOREIGN KEY ("B") REFERENCES "Service"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ */

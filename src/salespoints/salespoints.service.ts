@@ -9,6 +9,7 @@ export class SalespointsService {
 
   create(createSalespointDto: CreateSalespointDto) {
     return this.prisma.salesPoint.create({
+      include: { staff: true, workshifts: true },
       data: {
         ...createSalespointDto,
         admins: {
@@ -20,13 +21,21 @@ export class SalespointsService {
         staffServices: {
           connect: createSalespointDto.admins.map((a) => ({ id: a.id })),
         },
+        workshifts: {
+          connect: createSalespointDto.workshifts.map((a) => ({ id: a.id })),
+        },
       },
     });
   }
 
   findAll() {
     return this.prisma.salesPoint.findMany({
-      include: { staff: true, staffServices: true, admins: true },
+      include: {
+        staff: true,
+        staffServices: true,
+        admins: true,
+        workshifts: true,
+      },
     });
   }
 
@@ -40,18 +49,31 @@ export class SalespointsService {
   }
 
   update(id: number, updateSalespointDto: UpdateSalespointDto) {
+    console.log(updateSalespointDto);
     return this.prisma.salesPoint.update({
       where: { id },
+      include: { staff: true, workshifts: true },
       data: {
         ...updateSalespointDto,
         admins: {
-          connect: updateSalespointDto.admins,
+          set: updateSalespointDto.admins?.length
+            ? updateSalespointDto.admins
+            : [],
         },
         staff: {
-          connect: updateSalespointDto.staff,
+          set: updateSalespointDto.staff?.length
+            ? updateSalespointDto.staff
+            : [],
         },
         staffServices: {
-          connect: updateSalespointDto.staffServices,
+          set: updateSalespointDto.staffServices?.length
+            ? updateSalespointDto.staffServices
+            : undefined,
+        },
+        workshifts: {
+          set: updateSalespointDto.workshifts?.length
+            ? updateSalespointDto.workshifts
+            : [],
         },
       },
     });

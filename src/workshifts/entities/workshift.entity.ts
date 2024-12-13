@@ -16,6 +16,9 @@ export class WorkshiftEntity implements WorkShift {
   days: Days[];
 
   @ApiProperty()
+  title: string;
+
+  @ApiProperty()
   startTime: string;
 
   @ApiProperty()

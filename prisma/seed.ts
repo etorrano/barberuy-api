@@ -23,6 +23,7 @@ async function main() {
                   Days.THURSDAY,
                   Days.FRIDAY,
                 ] as Days[],
+                title: "Lunes a Viernes - 9 a 18 hs.",
                 startTime: "09:00",
                 endTime: "18:00",
               },

@@ -5,4 +5,4 @@
 
 */
 -- CreateIndex
-CREATE UNIQUE INDEX "StaffService_serviceId_staffId_salesPointId_key" ON "StaffService"("serviceId", "staffId", "salesPointId");
+--CREATE UNIQUE INDEX "StaffService_serviceId_staffId_salesPointId_key" ON "StaffService"("serviceId", "staffId", "salesPointId");

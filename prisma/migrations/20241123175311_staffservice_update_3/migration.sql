@@ -7,15 +7,15 @@
 
 */
 -- DropForeignKey
-ALTER TABLE "StaffService" DROP CONSTRAINT "StaffService_scheduleId_scheduleStartDate_scheduleEndDate_fkey";
+--ALTER TABLE "StaffService" DROP CONSTRAINT "StaffService_scheduleId_scheduleStartDate_scheduleEndDate_fkey";
 
 -- AlterTable
-ALTER TABLE "StaffService" DROP COLUMN "scheduleEndDate",
+/* ALTER TABLE "StaffService" DROP COLUMN "scheduleEndDate",
 DROP COLUMN "scheduleId",
-DROP COLUMN "scheduleStartDate";
+DROP COLUMN "scheduleStartDate"; */
 
 -- CreateTable
-CREATE TABLE "_ScheduleToStaffService" (
+/* CREATE TABLE "_ScheduleToStaffService" (
     "A" INTEGER NOT NULL,
     "B" INTEGER NOT NULL
 );
@@ -31,3 +31,4 @@ ALTER TABLE "_ScheduleToStaffService" ADD CONSTRAINT "_ScheduleToStaffService_A_
 
 -- AddForeignKey
 ALTER TABLE "_ScheduleToStaffService" ADD CONSTRAINT "_ScheduleToStaffService_B_fkey" FOREIGN KEY ("B") REFERENCES "StaffService"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ */

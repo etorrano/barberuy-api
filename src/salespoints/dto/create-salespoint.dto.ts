@@ -24,4 +24,7 @@ export class CreateSalespointDto {
 
   @ApiProperty()
   staffServices: { id: number }[];
+
+  @ApiProperty()
+  workshifts: { id: number }[];
 }
